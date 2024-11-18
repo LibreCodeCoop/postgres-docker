@@ -64,8 +64,13 @@ docker network create postgres
 
 ## Run postgres and pgadmin
 
+* Crie uma pasta para o postgres e acesse ela depois:
+  ```bash
+  mkdir -p ~/projects/postgres
+  ```
+* Crie o arquivo `~/projects/postgres/compose.yml` com o conteúdo do arquivo `compose.yml`:
+* Levante os serviços:
 ```bash
-# The postgres service is executed separated to be possible reuse this service to other applications that use PostgreSQL
 docker compose up -d
 
 ```
