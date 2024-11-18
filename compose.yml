@@ -1,0 +1,39 @@
+  networks:
+    postgres:
+      external: true
+      name: postgres
+    reverse-proxy:
+      external: true
+      name: reverse-proxy
+
+  services:
+    postgres:
+      container_name: postgres-postgres-1
+      image: postgres:16-alpine
+      restart: always
+      volumes:
+        - ./volumes/postgres/data:/var/lib/postgresql/data
+        - ./.docker/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+        # - ./volumes/postgresql.conf:/etc/postgresql/postgresql.conf
+      networks:
+        - postgres
+      environment:
+        - POSTGRES_PASSWORD
+        - POSTGRES_DB
+        - POSTGRES_USER
+        - TZ
+    pgadmin:
+      container_name: pgadmin_container
+      image: dpage/pgadmin4
+      environment:
+        - PGADMIN_DEFAULT_EMAIL
+        - PGADMIN_DEFAULT_PASSWORD
+        - VIRTUAL_HOST
+        - LETSENCRYPT_HOST
+        - LETSENCRYPT_EMAIL
+      volumes:
+        - ./volumes/pgadmin:/root/.pgadmin
+        - /root/projects/postgres/volumes/postgres/dump:/backup
+      networks:
+        - postgres
+        - reverse-proxy
