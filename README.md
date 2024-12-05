@@ -1,10 +1,10 @@
 # Postgres e PGAdmin setup com Docker
 
-- [PGAdmin with SSL and Docker](#pgadmin-with-ssl-and-docker)
-  - [Setup of docker](#setup-of-docker)
+- [PGAdmin com SSL e Docker](#pgadmin-com-ssl-e-docker)
+  - [Requisitos](#requisitos)
   - [Configurações do proxy](#configurações-do-proxy)
   - [Antes de subir o serviço pela primeira vez](#antes-de-subir-o-serviço-pela-primeira-vez)
-  - [Levantando os serviços de postgres and pgadmin](#levantando-os-serviços-de-postgres-and-pgadmin)
+  - [Levantando os serviços de postgres e pgadmin](#levantando-os-serviços-de-postgres-e-pgadmin)
   - [Logs](#logs)
 
 ## Requisitos
@@ -17,7 +17,7 @@ Siga as instruções no repositório abaixo:
 
 https://github.com/LibreCodeCoop/nginx-proxy
 
-## Antes de  subir o serviço pela primeira vez
+## Antes de subir o serviço pela primeira vez
 
 Clone este repositório:
   ```bash
@@ -49,7 +49,7 @@ Crie as redes necessárias:
   docker network create postgres
   ```
 
-## Levantando os serviços de postgres and pgadmin
+## Levantando os serviços de postgres e pgadmin
 
 * Crie uma pasta para o postgres e acesse ela depois:
   ```bash
