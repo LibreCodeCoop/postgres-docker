@@ -1,39 +1,23 @@
-# Postgres and PGAdmin setup with Docker
+# Postgres e PGAdmin setup com Docker
 
 - [PGAdmin with SSL and Docker](#pgadmin-with-ssl-and-docker)
   - [Setup of docker](#setup-of-docker)
-  - [Setup of proxy](#setup-of-proxy)
-  - [Before first run](#before-first-run)
-  - [Run postgres and pgadmin](#run-postgres-and-pgadmin)
+  - [Configurações do proxy](#configurações-do-proxy)
+  - [Antes de subir o serviço pela primeira vez](#antes-de-subir-o-serviço-pela-primeira-vez)
+  - [Levantando os serviços de postgres and pgadmin](#levantando-os-serviços-de-postgres-and-pgadmin)
   - [Logs](#logs)
 
-## Setup of docker
+## Requisitos
 
-You need to have, on your server, the installed docker. The installation can be done with an official script, following the following steps:
-- Download the docker
-```bash
-curl -fsSL https://get.docker.com -o get-docker.sh
-```
-- run the script
-```bash
-sh get-docker.sh
-```
-- Give permissions to execute the Docker command to your user
-```bash
-sudo usermod -aG docker $USER
-```
-- Remove the installation script
-```bash
-rm get-docker.sh
-```
+Para rodar esse projeto, você deve ter o `docker` e `docker compose` instalados.
 
-## Setup of proxy
+## Configurações do proxy
 
-Follow the instructions of this repository:
+Siga as instruções no repositório abaixo:
 
 https://github.com/LibreCodeCoop/nginx-proxy
 
-## Before first run
+## Antes de  subir o serviço pela primeira vez
 
 Copy the `.env.example` to `.env` and set the values.
 
@@ -41,28 +25,27 @@ Copy the `.env.example` to `.env` and set the values.
 cp .env.example .env
 ```
 
-| Environment | service | Description |
+| Ambiente | serviço | Descrição |
 |-------------|---------|-------|
-| [`VIRTUAL_HOST`](https://github.com/nginx-proxy/nginx-proxy#usage) | `web` | Your domain |
-| [`LETSENCRYPT_HOST`](https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Basic-usage.md#step-3---proxyed-containers) | `web` | Your domain |
-| [`LETSENCRYPT_EMAIL`](https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Let's-Encrypt-and-ACME.md#contact-address) | `web` | Your sysadmin email |
-| `POSTGRES_PASSWORD` | `postgres` | Password for the PostgreSQL database superuser. Should be changed from default for security. |
-| `POSTGRES_DB` | `postgres` | Name of the default database that is created when the PostgreSQL image is first started. |
-| `POSTGRES_USER` | `postgres` | Username for the PostgreSQL database superuser. |
-| `PGADMIN_DEFAULT_EMAIL` | `pgadmin` | Email address used as the login username for the pgAdmin web interface. |
-| `PGADMIN_DEFAULT_PASSWORD` | `pgadmin` | Password for accessing the pgAdmin web interface. Should be changed from default for security. |
+| [`VIRTUAL_HOST`](https://github.com/nginx-proxy/nginx-proxy#usage) | `web` | Seu domínio |
+| [`LETSENCRYPT_HOST`](https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Basic-usage.md#step-3---proxyed-containers) | `web` | Seu domínio |
+| [`LETSENCRYPT_EMAIL`](https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion/blob/master/docs/Let's-Encrypt-and-ACME.md#contact-address) | `web` | Seu e-mail de administrador de sistema |
+| `POSTGRES_PASSWORD` | `postgres` | Senha para o superusuário do banco de dados PostgreSQL. Deve ser alterada do padrão para segurança. |
+| `POSTGRES_DB` | `postgres` | Nome do banco de dados padrão que é criado quando a imagem PostgreSQL é iniciada pela primeira vez. |
+| `POSTGRES_USER` | `postgres` | Nome de usuário para o superusuário do banco de dados PostgreSQL. |
+| `PGADMIN_DEFAULT_EMAIL` | `pgadmin` | Endereço de e-mail usado como nome de usuário de login para a interface da web pgAdmin. |
+| `PGADMIN_DEFAULT_PASSWORD` | `pgadmin` | Senha para acessar a interface da web pgAdmin. Deve ser alterada do padrão para segurança. |
 
+> **PS**: O Let's Encrypt só funciona em servidores quando o `VIRTUAL_HOST` e o `LETSENCRYPT_HOST` têm um domínio público válido registrado em um servidor DNS. Não tente usar localhost, não funciona!
 
-> **PS**: Let's Encrypt only work in servers when the `VIRTUAL_HOST` and `LETSENCRYPT_HOST` have a valid public domain registered in a DNS server. Don't try to use in localhost, don't work!
-
-Create a network 
+Crie as redes necessárias:
 
 ```bash
 docker network create reverse-proxy
 docker network create postgres
 ```
 
-## Run postgres and pgadmin
+## Levantando os serviços de postgres and pgadmin
 
 * Crie uma pasta para o postgres e acesse ela depois:
   ```bash
@@ -70,16 +53,12 @@ docker network create postgres
   ```
 * Crie o arquivo `~/projects/postgres/compose.yml` com o conteúdo do arquivo `compose.yml`:
 * Levante os serviços:
-```bash
-docker compose up -d
-
-```
-
+  ```bash
+  docker compose up -d
+  ```
 ## Logs
-
-If you want to see the logs, run:
-
-```bash
-docker compose logs -f --tail=100
-```
+Se quiser ver os logs, rode o comando:
+  ```bash
+  docker compose logs -f --tail=100
+  ```
 
