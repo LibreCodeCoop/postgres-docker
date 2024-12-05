@@ -19,11 +19,15 @@ https://github.com/LibreCodeCoop/nginx-proxy
 
 ## Antes de  subir o serviço pela primeira vez
 
+Clone este repositório:
+  ```bash
+  git clone https://github.com/LibreCodeCoop/postgres-docker.git
+  ```
 Copy the `.env.example` to `.env` and set the values.
-
-```bash
-cp .env.example .env
-```
+  
+  ```bash
+  cp .env.example .env
+  ```
 
 | Ambiente | serviço | Descrição |
 |-------------|---------|-------|
@@ -40,10 +44,10 @@ cp .env.example .env
 
 Crie as redes necessárias:
 
-```bash
-docker network create reverse-proxy
-docker network create postgres
-```
+  ```bash
+  docker network create reverse-proxy
+  docker network create postgres
+  ```
 
 ## Levantando os serviços de postgres and pgadmin
 
