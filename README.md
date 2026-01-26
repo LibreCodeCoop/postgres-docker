@@ -1,6 +1,6 @@
 # Postgres e PGAdmin setup com Docker
 
-- [PGAdmin com SSL e Docker](#pgadmin-com-ssl-e-docker)
+- [Postgres e PGAdmin setup com Docker](#postgres-e-pgadmin-setup-com-docker)
   - [Requisitos](#requisitos)
   - [Configurações do proxy](#configurações-do-proxy)
   - [Antes de subir o serviço pela primeira vez](#antes-de-subir-o-serviço-pela-primeira-vez)
