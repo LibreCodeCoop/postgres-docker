@@ -14,7 +14,6 @@
       volumes:
         - ./volumes/postgres/data:/var/lib/postgresql/data
         - ./.docker/postgres/init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
-        # - ./volumes/postgresql.conf:/etc/postgresql/postgresql.conf
       networks:
         - postgres
       environment:
